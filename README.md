@@ -1,4 +1,4 @@
-# flutter_appl
+# flutter_app(GUI)
 
 A new Flutter application.
 
