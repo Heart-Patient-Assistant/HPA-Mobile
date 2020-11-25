@@ -28,7 +28,7 @@ class _ThirdState extends State<Third> {
             new Image.asset('img/doctors.jpg'),
             RaisedButton(
               onPressed: () {
-                Navigator.of(context).pushNamed('/Fourth');
+                Navigator.of(context).pushNamed('/DoctorSignup');
               },
               child: Text(
                 "Doctor",
