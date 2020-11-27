@@ -30,17 +30,14 @@ class _ThirdState extends State<Third> {
               onPressed: () {
                 Navigator.of(context).pushNamed('/DoctorSignup');
               },
-              child: Text(
-                "Doctor",
-                style: TextStyle(color: Colors.white),
-              ),
+              child: Text("Doctor", style: TextStyle(color: Colors.white),),
               color: Colors.blueGrey,
             ),
-            new Padding(padding: EdgeInsets.all(35.5)),
+            new Padding(padding: EdgeInsets.all(20.0)),
             new Image.asset("img/patient.jpg"),
             RaisedButton(
                 onPressed: () {
-                  Navigator.of(context).pushNamed('/Fourth');
+                  Navigator.of(context).pushNamed('/PatientAccountInfo');
                 },
                 child: Text("Patient", style: TextStyle(color: Colors.white)),
                 color: Colors.blueGrey)

@@ -156,7 +156,7 @@ class _FirstState extends State<First> {
                 )
               ],
             ),
-            new Padding(padding: EdgeInsets.all(25.5)),
+            new Padding(padding: EdgeInsets.zero),
             new Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
