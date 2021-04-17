@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_appl/Second.dart';
+import 'package:flutter_appl/PatientProfile.dart';
 
 class First extends StatefulWidget {
   @override
@@ -10,6 +10,13 @@ class _FirstState extends State<First> {
   final TextEditingController userName = TextEditingController();
   final TextEditingController password = TextEditingController();
   String name = '';
+  int radioGroup = 0;
+
+  void radioEventHandler(int value) {
+    setState(() {
+      radioGroup = value;
+    });
+  }
   void login() {
     setState(() {
       if (userName.text.trim().isEmpty && password.text.trim().isEmpty) {
@@ -17,7 +24,7 @@ class _FirstState extends State<First> {
             context: context,
             builder: (context) {
               return AlertDialog(
-                title: Text("Please enter your name and password"),
+                title: Text("Please enter your name and password."),
                 actions: [
                   FlatButton(
                       onPressed: () {
@@ -30,8 +37,12 @@ class _FirstState extends State<First> {
                 ],
               );
             });
-      } else {
-        Navigator.of(context).pushNamed("/Second", arguments: {
+      } else if (radioGroup==0) {
+        Navigator.of(context).pushNamed("/DoctorProfile", arguments: {
+          'user': userName,
+        });
+      }else{
+        Navigator.of(context).pushNamed("/PatientProfile", arguments: {
           'user': userName,
         });
       }
@@ -51,13 +62,6 @@ class _FirstState extends State<First> {
     });
   }
 
-  int radioGroup = 0;
-
-  void radioEventHandler(int value) {
-    setState(() {
-      radioGroup = value;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -110,23 +114,24 @@ class _FirstState extends State<First> {
                       hintText: "Password",
                     ),
                   ),
-                  new Padding(padding: EdgeInsets.all(10.0)),
+                  new Padding(padding: EdgeInsets.only(top: 30.0)),
                   new Container(
-                      margin: EdgeInsets.only(left: 90.0),
-                      child: new Column(
+                      margin: EdgeInsets.only(left: 35.0),
+                      child: new Row(
                         children: [
-                          new RadioListTile(
+                          new Radio(
                             value: 0,
                             groupValue: radioGroup,
                             onChanged: radioEventHandler,
-                            title: new Text("Doctor"),
                           ),
-                          new RadioListTile(
+                          new Text("Doctor"),
+                          new Padding(padding: EdgeInsets.only(right:15.0)),
+                          new Radio(
                             value: 1,
                             groupValue: radioGroup,
                             onChanged: radioEventHandler,
-                            title: new Text("Patient"),
                           ),
+                          new Text("Patient"),
                         ],
                       ))
                 ],
@@ -156,7 +161,7 @@ class _FirstState extends State<First> {
                 )
               ],
             ),
-            new Padding(padding: EdgeInsets.zero),
+            new Padding(padding: EdgeInsets.only(top: 25.0)),
             new Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
