@@ -2,6 +2,8 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_appl/First.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
 
 class DoctorProfile extends StatefulWidget {
   @override
@@ -12,6 +14,13 @@ class _DoctorProfileState extends State<DoctorProfile> {
 
   PickedFile _imageFile ;
   final ImagePicker picker = ImagePicker();
+  String _imagePath ;
+
+  @override
+  void initState(){
+    super.initState();
+    loadImage();
+  }
 
   Widget bottomSheet() {
     return Container(
@@ -63,6 +72,19 @@ class _DoctorProfileState extends State<DoctorProfile> {
       _imageFile = pickedFile ;
     });
   }
+
+  void saveImage(path) async{
+    SharedPreferences saveimage = await SharedPreferences.getInstance();
+    saveimage.setString("imagePath", path);
+  }
+
+  void loadImage() async{
+    SharedPreferences saveimage = await SharedPreferences.getInstance();
+    setState(() {
+      _imagePath = saveimage.getString("imagePath");
+    });
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -118,7 +140,7 @@ class _DoctorProfileState extends State<DoctorProfile> {
                       },
                       child: Icon(
                         Icons.camera_alt_outlined,
-                        color: Colors.black26,
+                        color: Colors.black54,
                       ),
                     ),
                   ),
@@ -139,7 +161,12 @@ class _DoctorProfileState extends State<DoctorProfile> {
 
                 ],
               ),
-            )
+            ),
+            new Padding(padding: EdgeInsets.all(20.0)),
+            new ElevatedButton(onPressed: (){
+              saveImage(_imageFile.path);
+            },
+              child: Text("Save Picture"),)
 
           ],
         ));

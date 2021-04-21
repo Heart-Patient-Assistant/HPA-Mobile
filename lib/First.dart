@@ -19,7 +19,7 @@ class _FirstState extends State<First> {
   }
   void login() {
     setState(() {
-      if (userName.text.trim().isEmpty && password.text.trim().isEmpty) {
+      if (userName.text.trim().isEmpty || password.text.trim().isEmpty) {
         showDialog(
             context: context,
             builder: (context) {

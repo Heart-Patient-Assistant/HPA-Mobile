@@ -2,6 +2,8 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_appl/First.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
 
 class Second extends StatefulWidget {
   @override
@@ -12,6 +14,13 @@ class _SecondState extends State<Second> {
 
   PickedFile _imageFile ;
   final ImagePicker picker = ImagePicker();
+  String _imagePath ;
+
+  @override
+  void initState(){
+    super.initState();
+    loadImage();
+  }
 
   Widget bottomSheet() {
     return Container(
@@ -55,6 +64,7 @@ class _SecondState extends State<Second> {
       ),
     );
   }
+
   void takePhoto(ImageSource source) async{
     final pickedFile = await picker.getImage(
       source: source,
@@ -62,6 +72,18 @@ class _SecondState extends State<Second> {
     setState(() {
       _imageFile = pickedFile ;
     });
+  }
+
+  void saveImage(path) async{
+    SharedPreferences saveimage = await SharedPreferences.getInstance();
+    saveimage.setString("imagePath", path);
+  }
+
+  void loadImage() async{
+    SharedPreferences saveimage = await SharedPreferences.getInstance();
+   setState(() {
+     _imagePath = saveimage.getString("imagePath");
+   });
   }
 
   Map data = {};
@@ -110,23 +132,37 @@ class _SecondState extends State<Second> {
             new Padding(padding: EdgeInsets.only(top: 40.0)),
             new Stack(
               children: <Widget>[
-                new CircleAvatar(
+                _imagePath!=null?CircleAvatar(backgroundImage:FileImage(File(_imagePath)) ,radius: 70,)
+                    : CircleAvatar(
                   backgroundImage: _imageFile==null?
                   AssetImage('img/Icon0.png'):FileImage(File(_imageFile.path)),
                   radius: 70,
-                  child: Container(
-                    padding: EdgeInsets.only(top: 100.0, left: 90.0),
-                    child: InkWell(
-                      onTap:(){
-                        showModalBottomSheet(
-                            context: context,
-                            builder: ((builder) => bottomSheet()));
-                      },
-                      child: Icon(
-                        Icons.camera_alt_outlined,
-                        color: Colors.black26,
+                  child: Row(
+                    children: [
+                      Container(
+                        padding: EdgeInsets.only(top: 100.0, left: 90.0),
+                        child: InkWell(
+                          onTap:(){
+                            showModalBottomSheet(
+                                context: context,
+                                builder: ((builder) => bottomSheet()));
+                          },
+                          child: Icon(
+                            Icons.camera_alt_outlined,
+                            color: Colors.black54,
+                          ),
+                        ),
                       ),
-                    ),
+                      Container(
+                        padding: EdgeInsets.only(top: 100.0,),
+                        child: InkWell(
+                          onTap: (){
+                            saveImage(_imageFile.path);
+                          },
+                          child: Icon(Icons.done,color: Colors.green,),
+                        ),
+                      )
+                    ],
                   ),
                 ),
               ],
@@ -151,7 +187,8 @@ class _SecondState extends State<Second> {
                   new Text("Blood Type:"),
                 ],
               ),
-            )
+            ),
+
           ],
         ));
   }
