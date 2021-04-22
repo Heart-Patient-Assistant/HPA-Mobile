@@ -94,7 +94,7 @@ class _FirstState extends State<First> {
                 controller: userName,
                 decoration: InputDecoration(
                   icon: new Icon(Icons.person, color: Colors.blueGrey),
-                  hintText: "Your Name",
+                  labelText: 'Name',
                 ),
               ),
             ),
@@ -111,7 +111,7 @@ class _FirstState extends State<First> {
                         Icons.lock,
                         color: Colors.blueGrey,
                       ),
-                      hintText: "Password",
+                      labelText: 'Password'   ,
                     ),
                   ),
                   new Padding(padding: EdgeInsets.only(top: 30.0)),

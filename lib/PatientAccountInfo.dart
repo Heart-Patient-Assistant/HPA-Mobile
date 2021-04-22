@@ -74,85 +74,85 @@ class _PatientState extends State<PatientAccountInfo>{
         alignment: Alignment.center,
         child: new ListView(
           children:[
-          new Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [  new Padding(padding: EdgeInsets.all(15.0)),
-            new Container(
-              margin: EdgeInsets.only(left: 20, right: 20),
-            child: new TextField(
-              controller: name,
-              textDirection: TextDirection.ltr,
-              keyboardType: TextInputType.name,
-              decoration: InputDecoration(
-                hintText: "Name",
-                icon: new Icon(
-                    Icons.person,
-                    color: Colors.blueGrey),
-              ),
-              ),
-            ),
-           new Padding(padding: EdgeInsets.all(5.0)),
-            new Container(
-              margin: EdgeInsets.only(left: 20, right: 20),
-              child: new TextField(
-              controller: email,
-              textDirection: TextDirection.ltr,
-              keyboardType: TextInputType.emailAddress,
-              decoration: InputDecoration(
-                hintText: "E-mail",
-                icon: new Icon(
-                    Icons.email,
-                    color: Colors.blueGrey),),
-            ),
-            ),
-           new Padding(padding: EdgeInsets.all(5.0)),
-            new Container(
-              margin: EdgeInsets.only(left: 20, right: 20),
-               child: new TextField(
+            new Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [  new Padding(padding: EdgeInsets.all(15.0)),
+                new Container(
+                  margin: EdgeInsets.only(left: 20, right: 20),
+                  child: new TextField(
+                    controller: name,
+                    textDirection: TextDirection.ltr,
+                    keyboardType: TextInputType.name,
+                    decoration: InputDecoration(
+                      labelText: 'Name',
+                      icon: new Icon(
+                          Icons.person,
+                          color: Colors.blueGrey),
+                    ),
+                  ),
+                ),
+                new Padding(padding: EdgeInsets.all(5.0)),
+                new Container(
+                  margin: EdgeInsets.only(left: 20, right: 20),
+                  child: new TextField(
+                    controller: email,
+                    textDirection: TextDirection.ltr,
+                    keyboardType: TextInputType.emailAddress,
+                    decoration: InputDecoration(
+                      labelText: 'E-mail',
+                      icon: new Icon(
+                          Icons.email,
+                          color: Colors.blueGrey),),
+                  ),
+                ),
+                new Padding(padding: EdgeInsets.all(5.0)),
+                new Container(
+                  margin: EdgeInsets.only(left: 20, right: 20),
+                  child: new TextField(
                     controller: userName,
                     textDirection: TextDirection.ltr,
                     keyboardType: TextInputType.name,
                     decoration: InputDecoration(
-                    hintText: "User name",
-                    icon: new Icon(
-                      Icons.supervised_user_circle,
-                      color: Colors.blueGrey),
+                      labelText: 'User name',
+                      icon: new Icon(
+                          Icons.supervised_user_circle,
+                          color: Colors.blueGrey),
                     ),
-               ),
-            ),
-            new Padding(padding: EdgeInsets.all(5.0)),
-            new Container(
+                  ),
+                ),
+                new Padding(padding: EdgeInsets.all(5.0)),
+                new Container(
                   margin: EdgeInsets.only(left: 60, right: 20),
                   child:new TextField(
-                  controller: password,
-                  obscureText: true,
-                  textDirection: TextDirection.ltr,
-                  keyboardType: TextInputType.visiblePassword,
-                  decoration: InputDecoration(
-                        hintText: "Password",) ,
+                    controller: password,
+                    obscureText: true,
+                    textDirection: TextDirection.ltr,
+                    keyboardType: TextInputType.visiblePassword,
+                    decoration: InputDecoration(
+                      labelText: 'Password',) ,
                   ),
-            ),
-            new Padding(padding: EdgeInsets.all(5.0)),
-            new Container(
-                 margin: EdgeInsets.only(left: 60, right: 20),
-                 child:new TextField(
+                ),
+                new Padding(padding: EdgeInsets.all(5.0)),
+                new Container(
+                  margin: EdgeInsets.only(left: 60, right: 20),
+                  child:new TextField(
                     controller:repeatPassword ,
                     obscureText: true,
                     textDirection: TextDirection.ltr,
                     keyboardType: TextInputType.visiblePassword,
-                   decoration: InputDecoration(hintText: "repeatPassword", ) ,
+                    decoration: InputDecoration(labelText: 'Re-password', ) ,
+                  ),
                 ),
-            ),
-            new Padding(padding: EdgeInsets.all(5.0)),
-            new FlatButton(
-              onPressed:next,
-              child: new Text('next'),
-              color: Colors.blueGrey,
-              textColor: Colors.white,
-            )
+                new Padding(padding: EdgeInsets.all(5.0)),
+                new FlatButton(
+                  onPressed:next,
+                  child: new Text('next'),
+                  color: Colors.blueGrey,
+                  textColor: Colors.white,
+                )
+              ],),
           ],),
-    ],),
-    ),
+      ),
 
 
     );

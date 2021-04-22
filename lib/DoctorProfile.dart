@@ -1,9 +1,9 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:flutter_appl/EditDoctorProfile.dart';
 import 'package:flutter_appl/First.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 
 class DoctorProfile extends StatefulWidget {
   @override
@@ -11,13 +11,12 @@ class DoctorProfile extends StatefulWidget {
 }
 
 class _DoctorProfileState extends State<DoctorProfile> {
-
-  PickedFile _imageFile2 ;
+  PickedFile _imageFile2;
   final ImagePicker picker2 = ImagePicker();
-  String _imagePath2 ;
+  String _imagePath2;
 
   @override
-  void initState(){
+  void initState() {
     super.initState();
     loadImage();
   }
@@ -46,14 +45,14 @@ class _DoctorProfileState extends State<DoctorProfile> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               FlatButton.icon(
-                  onPressed: (){
+                  onPressed: () {
                     takePhoto(ImageSource.camera);
                   },
                   icon: Icon(Icons.camera),
                   label: Text('Camera')),
               new Padding(padding: EdgeInsets.only(left: 100.0)),
               FlatButton.icon(
-                  onPressed: (){
+                  onPressed: () {
                     takePhoto(ImageSource.gallery);
                   },
                   icon: Icon(Icons.image),
@@ -64,27 +63,27 @@ class _DoctorProfileState extends State<DoctorProfile> {
       ),
     );
   }
-  void takePhoto(ImageSource source) async{
+
+  void takePhoto(ImageSource source) async {
     final pickedFile = await picker2.getImage(
       source: source,
     );
     setState(() {
-      _imageFile2 = pickedFile ;
+      _imageFile2 = pickedFile;
     });
   }
 
-  void saveImage(path) async{
+  void saveImage(path) async {
     SharedPreferences saveimage = await SharedPreferences.getInstance();
     saveimage.setString("imagePath", path);
   }
 
-  void loadImage() async{
+  void loadImage() async {
     SharedPreferences saveimage = await SharedPreferences.getInstance();
     setState(() {
       _imagePath2 = saveimage.getString("imagePath");
     });
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -99,24 +98,34 @@ class _DoctorProfileState extends State<DoctorProfile> {
           ),
           backgroundColor: Colors.blueGrey,
           actions: [
-            FlatButton.icon(onPressed: null, icon: Icon(Icons.edit), label: Text(''),onLongPress:(){
-              showDialog(
-                  context: context,
-                  builder: (context) {
-                    return AlertDialog(
-                      title: Text("Edit Your Personal Information"),
-                      actions: [
-                        FlatButton(
-                            onPressed: () {
-                              Navigator.pop(context);
-                            },
-                            child: new Text(
-                              "Ok",
-                              style: TextStyle(color: Colors.blue),
-                            ))
-                      ],
-                    );
-                  });} ,)
+            FlatButton.icon(
+              onPressed: () {
+                Navigator.of(context).push(new MaterialPageRoute(
+                  builder: (BuildContext context) => new EditDoctorProfile(),
+                ));
+              },
+              icon: Icon(Icons.edit),
+              label: Text(''),
+              onLongPress: () {
+                showDialog(
+                    context: context,
+                    builder: (context) {
+                      return AlertDialog(
+                        title: Text("Edit Your Personal Information"),
+                        actions: [
+                          FlatButton(
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                              child: new Text(
+                                "Ok",
+                                style: TextStyle(color: Colors.blue),
+                              ))
+                        ],
+                      );
+                    });
+              },
+            )
           ],
         ),
         body: new Column(
@@ -124,34 +133,42 @@ class _DoctorProfileState extends State<DoctorProfile> {
             new Padding(padding: EdgeInsets.only(top: 40.0)),
             new Stack(
                 alignment: Alignment.center,
-                children : [
-                  _imagePath2!=null?CircleAvatar(backgroundImage:FileImage(File(_imagePath2)) ,radius: 70,)
+                children: [
+                  _imagePath2 != null
+                      ? CircleAvatar(
+                          backgroundImage: FileImage(File(_imagePath2)),
+                          radius: 70,
+                        )
                       : CircleAvatar(
-                  backgroundImage: _imageFile2==null?
-                  AssetImage('img/doctorIcon2.jpg'):FileImage(File(_imageFile2.path)),
-                  backgroundColor: Colors.blueGrey,
-                  radius: 70,
-                  child: Container(
-                    padding: EdgeInsets.only(top: 100.0, left: 90.0),
-                    child: InkWell(
-                      onTap:(){
-                        showModalBottomSheet(
-                            context: context,
-                            builder: ((builder) => bottomSheet()));
-                      },
-                      child: Icon(
-                        Icons.camera_alt_outlined,
-                        color: Colors.black54,
-                      ),
-                    ),
-                  ),
-                )] ),
+                          backgroundImage: _imageFile2 == null
+                              ? AssetImage('img/doctorIcon2.jpg')
+                              : FileImage(File(_imageFile2.path)),
+                          backgroundColor: Colors.blueGrey,
+                          radius: 70,
+                          child: Container(
+                            padding: EdgeInsets.only(top: 100.0, left: 90.0),
+                            child: InkWell(
+                              onTap: () {
+                                showModalBottomSheet(
+                                    context: context,
+                                    builder: ((builder) => bottomSheet()));
+                              },
+                              child: Icon(
+                                Icons.camera_alt_outlined,
+                                color: Colors.black54,
+                              ),
+                            ),
+                          ),
+                        )
+                ]),
             new Padding(padding: EdgeInsets.all(10.0)),
             new Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                new Text("Doctor's Name",style: TextStyle(fontSize: 20.0,fontStyle: FontStyle.italic),),
-
+                new Text(
+                  "Doctor's Name",
+                  style: TextStyle(fontSize: 20.0, fontStyle: FontStyle.italic),
+                ),
               ],
             ),
             new Padding(padding: EdgeInsets.all(20.0)),
@@ -159,16 +176,16 @@ class _DoctorProfileState extends State<DoctorProfile> {
               child: new Column(
                 children: [
                   new Text("Medical Degree:"),
-
                 ],
               ),
             ),
             new Padding(padding: EdgeInsets.all(20.0)),
-            new ElevatedButton(onPressed: (){
-              saveImage(_imageFile2.path);
-            },
-              child: Text("Save Picture"),)
-
+            new ElevatedButton(
+              onPressed: () {
+                saveImage(_imageFile2.path);
+              },
+              child: Text("Save Picture"),
+            )
           ],
         ));
   }

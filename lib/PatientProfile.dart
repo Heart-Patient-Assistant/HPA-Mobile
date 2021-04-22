@@ -81,9 +81,9 @@ class _SecondState extends State<Second> {
 
   void loadImage() async{
     SharedPreferences saveimage = await SharedPreferences.getInstance();
-   setState(() {
-     _imagePath = saveimage.getString("imagePath");
-   });
+    setState(() {
+      _imagePath = saveimage.getString("imagePath");
+    });
   }
 
   Map data = {};
@@ -138,30 +138,30 @@ class _SecondState extends State<Second> {
                   AssetImage('img/Icon0.png'):FileImage(File(_imageFile.path)),
                   radius: 70,
                   child:
-                      Container(
-                        padding: EdgeInsets.only(top: 100.0, left: 90.0),
-                        child: InkWell(
-                          onTap:(){
-                            showModalBottomSheet(
-                                context: context,
-                                builder: ((builder) => bottomSheet()));
-                          },
-                          child: Icon(
-                            Icons.camera_alt_outlined,
-                            color: Colors.black54,
-                          ),
-                        ),
+                  Container(
+                    padding: EdgeInsets.only(top: 100.0, left: 90.0),
+                    child: InkWell(
+                      onTap:(){
+                        showModalBottomSheet(
+                            context: context,
+                            builder: ((builder) => bottomSheet()));
+                      },
+                      child: Icon(
+                        Icons.camera_alt_outlined,
+                        color: Colors.black54,
                       ),
-                      // Container(
-                      //   padding: EdgeInsets.only(top: 100.0,),
-                      //   child: InkWell(
-                      //     onTap: (){
-                      //       saveImage(_imageFile.path);
-                      //     },
-                      //     child: Icon(Icons.done,color: Colors.green,),
-                      //   ),
-                      //
+                    ),
                   ),
+                  // Container(
+                  //   padding: EdgeInsets.only(top: 100.0,),
+                  //   child: InkWell(
+                  //     onTap: (){
+                  //       saveImage(_imageFile.path);
+                  //     },
+                  //     child: Icon(Icons.done,color: Colors.green,),
+                  //   ),
+                  //
+                ),
               ],
             ),
             new Padding(padding: EdgeInsets.all(10.0)),

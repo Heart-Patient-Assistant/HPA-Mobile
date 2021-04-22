@@ -33,14 +33,14 @@ class _DoneState extends State<Done> {
               child: new Image.asset('img/done3.png'),),
             new Padding(padding: EdgeInsets.only(top: 180.0)),
             new Row(mainAxisAlignment: MainAxisAlignment.end,
-               children: [
-                 new RaisedButton.icon(
-                   onPressed:(){Navigator.of(context).pushNamedAndRemoveUntil('/HomePage', (Route<dynamic> route)=> false);},color: Colors.blueGrey,label: Text("Home",style: TextStyle(color: Colors.white),),
-                   icon: Icon(Icons.arrow_forward,color: Colors.white,),),
-               ],
-           )
+              children: [
+                new RaisedButton.icon(
+                  onPressed:(){Navigator.of(context).pushNamedAndRemoveUntil('/HomePage', (Route<dynamic> route)=> false);},color: Colors.blueGrey,label: Text("Home",style: TextStyle(color: Colors.white),),
+                  icon: Icon(Icons.arrow_forward,color: Colors.white,),),
+              ],
+            )
 
-                       ],
+          ],
         ));
   }
 }

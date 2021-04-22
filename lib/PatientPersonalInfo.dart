@@ -21,7 +21,7 @@ class _PatientPersonalInfoState extends State<PatientPersonalInfo>{
     setState(() {
       if (age.text.trim().isEmpty || height.text.trim().isEmpty
           ||weight.text.trim().isEmpty || bloodType.text.trim().isEmpty
-         ) {
+      ) {
         showDialog(
             context: context,
             builder: (context) {
@@ -59,80 +59,80 @@ class _PatientPersonalInfoState extends State<PatientPersonalInfo>{
           children: [ new Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children :[
-            new Padding(padding: EdgeInsets.all(10.0)),
-            new Container(
-               margin: EdgeInsets.only(left: 60, right: 20),
-               child: new TextField(
-                   controller: age,
-                   textDirection: TextDirection.ltr,
-                   keyboardType: TextInputType.number,
-                    decoration: InputDecoration(hintText: "Age",),
-                ),),
-            new Padding(padding: EdgeInsets.all(10.0)),
-            new Container(
+              new Padding(padding: EdgeInsets.all(10.0)),
+              new Container(
                 margin: EdgeInsets.only(left: 60, right: 20),
                 child: new TextField(
-                     controller: height,
-                     textDirection: TextDirection.ltr,
-                     keyboardType: TextInputType.number,
-                     decoration: InputDecoration(hintText: "Height",),
-                 ),
-            ),
-            new Padding(padding: EdgeInsets.all(10.0)),
-            new Container(
-               margin: EdgeInsets.only(left: 60, right: 20),
-               child: new TextField(
-                    controller: weight,
-                    textDirection: TextDirection.ltr,
-                    keyboardType: TextInputType.number,
-                    decoration: InputDecoration(hintText: "Weight",),
-                ),
-            ),
-            new Padding(padding: EdgeInsets.all(10.0)),
-            new Container(
-              margin: EdgeInsets.only(left: 60, right: 20),
-              child: new TextField(
-              controller: bloodType,
-              textDirection: TextDirection.ltr,
-              keyboardType: TextInputType.number,
-              decoration: InputDecoration(hintText: "Blood Type", ),
-            ),
-            ),
-         new Padding(padding: EdgeInsets.all(5.0)),
-         new Container(
-          margin: EdgeInsets.only(left: 20, right: 20),
-          child: new TextField(
-            controller: diagnosis,
-            textDirection: TextDirection.ltr,
-            keyboardType: TextInputType.name,
-            decoration: InputDecoration(
-              hintText: "If you know your diagnosis, please insert it",
-              icon: new Icon(
-                  Icons.assignment,
-                  color: Colors.blueGrey),
-            ),
-          ),
-        ),
-            new Padding(padding: EdgeInsets.all(5.0)),
-            new Container(
-              margin: EdgeInsets.only(left: 20, right: 20),
-              child: new TextField(
-                controller: files,
-                textDirection: TextDirection.ltr,
-                keyboardType: TextInputType.name,
-                decoration: InputDecoration(
-                  hintText: "If you have any reports, please upload it",
-                  icon: new Icon(
-                      Icons.file_upload,
-                      color: Colors.blueGrey),
+                  controller: age,
+                  textDirection: TextDirection.ltr,
+                  keyboardType: TextInputType.number,
+                  decoration: InputDecoration(labelText: 'Age',),
+                ),),
+              new Padding(padding: EdgeInsets.all(10.0)),
+              new Container(
+                margin: EdgeInsets.only(left: 60, right: 20),
+                child: new TextField(
+                  controller: height,
+                  textDirection: TextDirection.ltr,
+                  keyboardType: TextInputType.number,
+                  decoration: InputDecoration(labelText: 'Height',),
                 ),
               ),
-            ),
-            new Padding(padding: EdgeInsets.all(10.0)),
-            new FlatButton(onPressed:_signUp,
-              child: new Text('Sign up'),color: Colors.blueGrey,textColor: Colors.white,)
+              new Padding(padding: EdgeInsets.all(10.0)),
+              new Container(
+                margin: EdgeInsets.only(left: 60, right: 20),
+                child: new TextField(
+                  controller: weight,
+                  textDirection: TextDirection.ltr,
+                  keyboardType: TextInputType.number,
+                  decoration: InputDecoration(labelText: 'Weight',),
+                ),
+              ),
+              new Padding(padding: EdgeInsets.all(10.0)),
+              new Container(
+                margin: EdgeInsets.only(left: 60, right: 20),
+                child: new TextField(
+                  controller: bloodType,
+                  textDirection: TextDirection.ltr,
+                  keyboardType: TextInputType.number,
+                  decoration: InputDecoration(labelText: 'Blood type', ),
+                ),
+              ),
+              new Padding(padding: EdgeInsets.all(5.0)),
+              new Container(
+                margin: EdgeInsets.only(left: 20, right: 20),
+                child: new TextField(
+                  controller: diagnosis,
+                  textDirection: TextDirection.ltr,
+                  keyboardType: TextInputType.name,
+                  decoration: InputDecoration(
+                    hintText: "If you know your diagnosis, please insert it",
+                    icon: new Icon(
+                        Icons.assignment,
+                        color: Colors.blueGrey),
+                  ),
+                ),
+              ),
+              new Padding(padding: EdgeInsets.all(5.0)),
+              new Container(
+                margin: EdgeInsets.only(left: 20, right: 20),
+                child: new TextField(
+                  controller: files,
+                  textDirection: TextDirection.ltr,
+                  keyboardType: TextInputType.name,
+                  decoration: InputDecoration(
+                    hintText: "If you have any reports, please upload it",
+                    icon: new Icon(
+                        Icons.file_upload,
+                        color: Colors.blueGrey),
+                  ),
+                ),
+              ),
+              new Padding(padding: EdgeInsets.all(10.0)),
+              new FlatButton(onPressed:_signUp,
+                child: new Text('Sign up'),color: Colors.blueGrey,textColor: Colors.white,)
+            ],),
           ],),
-        ],),
       ),
     );
   }

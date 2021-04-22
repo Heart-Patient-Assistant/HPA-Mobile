@@ -14,6 +14,7 @@ class _DoctorSignupState extends State<DoctorSignup>{
   final TextEditingController email = TextEditingController();
   final TextEditingController userName = TextEditingController();
   final TextEditingController password = TextEditingController();
+  final TextEditingController repeatPassword = TextEditingController();
   final TextEditingController medicalDegree = TextEditingController();
 
   void signUp() {
@@ -55,22 +56,24 @@ class _DoctorSignupState extends State<DoctorSignup>{
       ),
       body:new Container( margin: EdgeInsets.only(left: 33.5, right: 33.5),
         child: new Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [  new Padding(padding: EdgeInsets.all(10.0)),
-          new TextField(controller: name,textDirection: TextDirection.ltr,keyboardType: TextInputType.name,decoration: InputDecoration(hintText: "Name",) ,)
-          ,new Padding(padding: EdgeInsets.all(10.0)),
-          new TextField(controller: email,textDirection: TextDirection.ltr,keyboardType: TextInputType.emailAddress,decoration: InputDecoration(hintText: "E-mail",) ,)
-          ,new Padding(padding: EdgeInsets.all(10.0)),
-          new TextField(controller: userName,textDirection: TextDirection.ltr,keyboardType: TextInputType.name,decoration: InputDecoration(hintText: "User name",) ,)
-          ,new Padding(padding: EdgeInsets.all(10.0)),
-          new TextField(controller: password,obscureText: true, textDirection: TextDirection.ltr,keyboardType: TextInputType.visiblePassword,decoration: InputDecoration(hintText: "Password", ) ,)
-          ,new Padding(padding: EdgeInsets.all(10.0)),
-          new TextField(controller: medicalDegree,textDirection: TextDirection.ltr,keyboardType: TextInputType.name,decoration: InputDecoration(hintText: "Medical degree", ) ,)
-          ,new Padding(padding: EdgeInsets.all(10.0)),
-          new FlatButton(onPressed:signUp,
-            child: new Text('Sign up'),color: Colors.blueGrey,textColor: Colors.white,)
-        ],
-      ),),
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [  new Padding(padding: EdgeInsets.all(10.0)),
+            new TextField(controller: name,textDirection: TextDirection.ltr,keyboardType: TextInputType.name,decoration: InputDecoration(labelText: 'Name') ,)
+            ,new Padding(padding: EdgeInsets.all(10.0)),
+            new TextField(controller: email,textDirection: TextDirection.ltr,keyboardType: TextInputType.emailAddress,decoration: InputDecoration(labelText: 'E-mail',) ,)
+            ,new Padding(padding: EdgeInsets.all(10.0)),
+            new TextField(controller: userName,textDirection: TextDirection.ltr,keyboardType: TextInputType.name,decoration: InputDecoration(labelText: 'User name',) ,)
+            ,new Padding(padding: EdgeInsets.all(10.0)),
+            new TextField(controller: password,obscureText: true, textDirection: TextDirection.ltr,keyboardType: TextInputType.visiblePassword,decoration: InputDecoration(labelText: 'Password', ) ,)
+            ,new Padding(padding: EdgeInsets.all(10.0)),
+            new TextField(controller: repeatPassword,obscureText: true, textDirection: TextDirection.ltr,keyboardType: TextInputType.visiblePassword,decoration: InputDecoration(labelText: 'Re-password', ) ,)
+            ,new Padding(padding: EdgeInsets.all(10.0)),
+            new TextField(controller: medicalDegree,textDirection: TextDirection.ltr,keyboardType: TextInputType.name,decoration: InputDecoration(labelText: 'Medical degree', ) ,)
+            ,new Padding(padding: EdgeInsets.all(10.0)),
+            new FlatButton(onPressed:signUp,
+              child: new Text('Sign up'),color: Colors.blueGrey,textColor: Colors.white,)
+          ],
+        ),),
 
 
     );
