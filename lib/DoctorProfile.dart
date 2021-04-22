@@ -12,9 +12,9 @@ class DoctorProfile extends StatefulWidget {
 
 class _DoctorProfileState extends State<DoctorProfile> {
 
-  PickedFile _imageFile ;
-  final ImagePicker picker = ImagePicker();
-  String _imagePath ;
+  PickedFile _imageFile2 ;
+  final ImagePicker picker2 = ImagePicker();
+  String _imagePath2 ;
 
   @override
   void initState(){
@@ -65,11 +65,11 @@ class _DoctorProfileState extends State<DoctorProfile> {
     );
   }
   void takePhoto(ImageSource source) async{
-    final pickedFile = await picker.getImage(
+    final pickedFile = await picker2.getImage(
       source: source,
     );
     setState(() {
-      _imageFile = pickedFile ;
+      _imageFile2 = pickedFile ;
     });
   }
 
@@ -81,7 +81,7 @@ class _DoctorProfileState extends State<DoctorProfile> {
   void loadImage() async{
     SharedPreferences saveimage = await SharedPreferences.getInstance();
     setState(() {
-      _imagePath = saveimage.getString("imagePath");
+      _imagePath2 = saveimage.getString("imagePath");
     });
   }
 
@@ -122,12 +122,13 @@ class _DoctorProfileState extends State<DoctorProfile> {
         body: new Column(
           children: [
             new Padding(padding: EdgeInsets.only(top: 40.0)),
-            new Container(
-                margin: EdgeInsets.only(top: 20.0),
+            new Stack(
                 alignment: Alignment.center,
-                child: new CircleAvatar(
-                  backgroundImage: _imageFile==null?
-                  AssetImage('img/doctorIcon2.jpg'):FileImage(File(_imageFile.path)),
+                children : [
+                  _imagePath2!=null?CircleAvatar(backgroundImage:FileImage(File(_imagePath2)) ,radius: 70,)
+                      : CircleAvatar(
+                  backgroundImage: _imageFile2==null?
+                  AssetImage('img/doctorIcon2.jpg'):FileImage(File(_imageFile2.path)),
                   backgroundColor: Colors.blueGrey,
                   radius: 70,
                   child: Container(
@@ -144,7 +145,7 @@ class _DoctorProfileState extends State<DoctorProfile> {
                       ),
                     ),
                   ),
-                )),
+                )] ),
             new Padding(padding: EdgeInsets.all(10.0)),
             new Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -164,7 +165,7 @@ class _DoctorProfileState extends State<DoctorProfile> {
             ),
             new Padding(padding: EdgeInsets.all(20.0)),
             new ElevatedButton(onPressed: (){
-              saveImage(_imageFile.path);
+              saveImage(_imageFile2.path);
             },
               child: Text("Save Picture"),)
 

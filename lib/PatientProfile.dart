@@ -137,8 +137,7 @@ class _SecondState extends State<Second> {
                   backgroundImage: _imageFile==null?
                   AssetImage('img/Icon0.png'):FileImage(File(_imageFile.path)),
                   radius: 70,
-                  child: Row(
-                    children: [
+                  child:
                       Container(
                         padding: EdgeInsets.only(top: 100.0, left: 90.0),
                         child: InkWell(
@@ -153,18 +152,16 @@ class _SecondState extends State<Second> {
                           ),
                         ),
                       ),
-                      Container(
-                        padding: EdgeInsets.only(top: 100.0,),
-                        child: InkWell(
-                          onTap: (){
-                            saveImage(_imageFile.path);
-                          },
-                          child: Icon(Icons.done,color: Colors.green,),
-                        ),
-                      )
-                    ],
+                      // Container(
+                      //   padding: EdgeInsets.only(top: 100.0,),
+                      //   child: InkWell(
+                      //     onTap: (){
+                      //       saveImage(_imageFile.path);
+                      //     },
+                      //     child: Icon(Icons.done,color: Colors.green,),
+                      //   ),
+                      //
                   ),
-                ),
               ],
             ),
             new Padding(padding: EdgeInsets.all(10.0)),
@@ -188,6 +185,11 @@ class _SecondState extends State<Second> {
                 ],
               ),
             ),
+            new Padding(padding: EdgeInsets.all(20.0)),
+            new ElevatedButton(onPressed: (){
+              saveImage(_imageFile.path);
+            },
+              child: Text("Save Picture"),)
 
           ],
         ));
