@@ -54,10 +54,12 @@ class _DoctorSignupState extends State<DoctorSignup>{
         title: new Text('Sign up'),
         backgroundColor: Colors.blueGrey,
       ),
-      body:new Container( margin: EdgeInsets.only(left: 33.5, right: 33.5),
-        child: new Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [  new Padding(padding: EdgeInsets.all(10.0)),
+      body:new ListView( padding: const EdgeInsets.only(
+          top: 32, left: 22.0, right: 22),
+        //mainAxisAlignment: MainAxisAlignment.start,
+          children: [ // margin: EdgeInsets.only(left: 33.5, right: 33.5),
+           //
+            new Padding(padding: EdgeInsets.all(10.0)),
             new TextField(controller: name,textDirection: TextDirection.ltr,keyboardType: TextInputType.name,decoration: InputDecoration(labelText: 'Name') ,)
             ,new Padding(padding: EdgeInsets.all(10.0)),
             new TextField(controller: email,textDirection: TextDirection.ltr,keyboardType: TextInputType.emailAddress,decoration: InputDecoration(labelText: 'E-mail',) ,)
@@ -73,7 +75,7 @@ class _DoctorSignupState extends State<DoctorSignup>{
             new FlatButton(onPressed:signUp,
               child: new Text('Sign up'),color: Colors.blueGrey,textColor: Colors.white,)
           ],
-        ),),
+        )
 
 
     );
