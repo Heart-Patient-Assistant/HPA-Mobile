@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:flutter_appl/EditPatientProfile.dart';
 import 'package:flutter_appl/First.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -102,7 +103,11 @@ class _SecondState extends State<Second> {
           backgroundColor: Colors.blueGrey,
           actions: [
             FlatButton.icon(
-              onPressed: null,
+              onPressed: () {
+    Navigator.of(context).push(new MaterialPageRoute(
+    builder: (BuildContext context) => new EditPatientProfile(),
+    ));
+    },
               icon: Icon(Icons.edit),
               label: Text(''),
               onLongPress: () {
