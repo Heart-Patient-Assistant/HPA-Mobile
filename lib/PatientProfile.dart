@@ -100,7 +100,7 @@ class _SecondState extends State<Second> {
               color: Colors.white,
             ),
           ),
-          backgroundColor: Colors.blueGrey,
+          backgroundColor: Colors.teal.shade700,
           actions: [
             FlatButton.icon(
               onPressed: () {
@@ -108,7 +108,8 @@ class _SecondState extends State<Second> {
     builder: (BuildContext context) => new EditPatientProfile(),
     ));
     },
-              icon: Icon(Icons.edit),
+              icon: Icon(Icons.edit,
+                  color: Colors.white ),
               label: Text(''),
               onLongPress: () {
                 showDialog(

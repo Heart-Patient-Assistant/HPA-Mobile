@@ -20,8 +20,7 @@ class _DoctorSignupState extends State<DoctorSignup>{
   void signUp() {
     setState(() {
       if (name.text.trim().isEmpty || email.text.trim().isEmpty
-          ||userName.text.trim().isEmpty || password.text.trim().isEmpty
-          || medicalDegree.text.trim().isEmpty) {
+          ||userName.text.trim().isEmpty || password.text.trim().isEmpty||repeatPassword.text.trim().isEmpty) {
         showDialog(
             context: context,
             builder: (context) {
@@ -39,12 +38,31 @@ class _DoctorSignupState extends State<DoctorSignup>{
                 ],
               );
             });
-      } else {
+      } else if(password.text.trim()!= repeatPassword.text.trim()){
+        showDialog(
+            context: context,
+            builder: (context) {
+              return AlertDialog(
+                title: Text("Please convert the password "),
+                actions: [
+                  FlatButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      child: new Text(
+                        "Ok",
+                        style: TextStyle(color: Colors.blue),
+                      ))
+                ],
+              );
+            });
+      }else {
         Navigator.of(context).pushNamedAndRemoveUntil('/Done', (Route<dynamic> route)=> false, arguments: {
-        });
-      }
+        });      }
     });
   }
+
+
 
 
   @override
@@ -54,28 +72,102 @@ class _DoctorSignupState extends State<DoctorSignup>{
         title: new Text('Sign up'),
         backgroundColor: Colors.blueGrey,
       ),
-      body:new ListView( padding: const EdgeInsets.only(
-          top: 32, left: 22.0, right: 22),
-        //mainAxisAlignment: MainAxisAlignment.start,
-          children: [ // margin: EdgeInsets.only(left: 33.5, right: 33.5),
-           //
-            new Padding(padding: EdgeInsets.all(10.0)),
-            new TextField(controller: name,textDirection: TextDirection.ltr,keyboardType: TextInputType.name,decoration: InputDecoration(labelText: 'Name') ,)
-            ,new Padding(padding: EdgeInsets.all(10.0)),
-            new TextField(controller: email,textDirection: TextDirection.ltr,keyboardType: TextInputType.emailAddress,decoration: InputDecoration(labelText: 'E-mail',) ,)
-            ,new Padding(padding: EdgeInsets.all(10.0)),
-            new TextField(controller: userName,textDirection: TextDirection.ltr,keyboardType: TextInputType.name,decoration: InputDecoration(labelText: 'User name',) ,)
-            ,new Padding(padding: EdgeInsets.all(10.0)),
-            new TextField(controller: password,obscureText: true, textDirection: TextDirection.ltr,keyboardType: TextInputType.visiblePassword,decoration: InputDecoration(labelText: 'Password', ) ,)
-            ,new Padding(padding: EdgeInsets.all(10.0)),
-            new TextField(controller: repeatPassword,obscureText: true, textDirection: TextDirection.ltr,keyboardType: TextInputType.visiblePassword,decoration: InputDecoration(labelText: 'Re-password', ) ,)
-            ,new Padding(padding: EdgeInsets.all(10.0)),
-            new TextField(controller: medicalDegree,textDirection: TextDirection.ltr,keyboardType: TextInputType.name,decoration: InputDecoration(labelText: 'Medical degree', ) ,)
-            ,new Padding(padding: EdgeInsets.all(10.0)),
-            new FlatButton(onPressed:signUp,
-              child: new Text('Sign up'),color: Colors.blueGrey,textColor: Colors.white,)
-          ],
-        )
+      body: new Container(margin: EdgeInsets.only(left: 33.5, right: 33.5),
+         child : ListView(
+            padding: const EdgeInsets.only(
+                top: 32),
+            children: <Widget>[
+              Container(
+                height: 50,
+                child: new TextField(
+                  controller: name,
+                  keyboardType: TextInputType.text,
+                  decoration: InputDecoration(
+                    labelText: 'Name',
+                    icon: new Icon(Icons.person),
+                  ),
+                ),
+              ),
+              new Padding(padding: new EdgeInsets.only(top: 10.0),),
+
+              Container(
+                height: 50,
+                child: new TextField(
+                  controller: email,
+                  keyboardType: TextInputType.emailAddress,
+                  decoration: InputDecoration(
+                    labelText: 'E-mail',
+                    icon: new Icon(Icons.email),
+                  ),
+                ),
+              ),
+              new Padding(padding: new EdgeInsets.only(top: 10.0),),
+
+              Container(
+                height: 50,
+                child: new TextField(
+                  controller: userName,
+                  keyboardType: TextInputType.text,
+                  decoration: InputDecoration(
+                    labelText: 'User name',
+                    icon: new Icon(Icons.person ),
+                  ),
+                ),
+              ),
+              new Padding(padding: new EdgeInsets.only(top: 10.0),),
+
+              Container(
+                height: 50,
+                child: new TextField(obscureText: true,
+                  controller: password,
+                  keyboardType: TextInputType.visiblePassword,
+                  decoration: InputDecoration(
+                    labelText: 'Password',
+                    icon: new Icon(Icons.lock),
+                  ),
+                ),
+              ),
+              new Padding(padding: new EdgeInsets.only(top: 10.0),),
+
+              Container(margin: EdgeInsets.only(left:  40,),
+                height: 50,
+                child: new TextField(obscureText: true,
+                  controller: repeatPassword,
+                  keyboardType: TextInputType.visiblePassword,
+                  decoration: InputDecoration(
+                    labelText: 'Re-password',
+                  ),
+                ),
+              ),
+              new Padding(padding: new EdgeInsets.only(top: 10.0),),
+
+              Container(margin: EdgeInsets.only(left:  40,),
+                height: 50,
+                child: new TextField(controller: medicalDegree,
+                  keyboardType: TextInputType.text,
+                  decoration: InputDecoration(
+                    labelText: 'Medical degree',
+                  ),
+                ),
+              ),
+              new Padding(padding: new EdgeInsets.only(top: 30.0),),
+
+              new Container(
+                alignment : Alignment.center,
+                  padding: new EdgeInsets.only(left: 25),
+                child : new RaisedButton(
+                  onPressed: signUp,
+                  color: Colors.teal.shade700,
+                  child: new Text(
+                    'Sign up',
+                    style: new TextStyle(
+                      color: Colors.white,),
+                  ),
+                ),
+              )
+            ],
+          ),
+      )
 
 
     );

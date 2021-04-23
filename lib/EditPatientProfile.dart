@@ -49,6 +49,7 @@ class _EditPatientProfileState extends State<EditPatientProfile> {
       home: Scaffold(
         appBar: AppBar(
           title: Text('Edit your information'),
+          backgroundColor: Colors.teal.shade700,
         ),
         body: Container(margin: EdgeInsets.only(left: 33.5, right: 33.5),
             child: ListView(
@@ -62,7 +63,7 @@ class _EditPatientProfileState extends State<EditPatientProfile> {
                     keyboardType: TextInputType.text,
                     decoration: InputDecoration(
                       labelText: 'Name',
-                      icon: new Icon(Icons.account_circle),
+                      icon: new Icon(Icons.person),
                     ),
                   ),
                 ),
@@ -88,7 +89,7 @@ class _EditPatientProfileState extends State<EditPatientProfile> {
                     keyboardType: TextInputType.text,
                     decoration: InputDecoration(
                       labelText: 'User name',
-                      icon: new Icon(Icons.account_circle ),
+                      icon: new Icon(Icons.person ),
                     ),
                   ),
                 ),
@@ -101,20 +102,19 @@ class _EditPatientProfileState extends State<EditPatientProfile> {
                     keyboardType: TextInputType.visiblePassword,
                     decoration: InputDecoration(
                       labelText: 'Password',
-                      icon: new Icon(Icons.vpn_key_rounded),
+                      icon: new Icon(Icons.lock),
                     ),
                   ),
                 ),
                 new Padding(padding: new EdgeInsets.only(top: 10.0),),
 
-                Container(
+                Container(margin: EdgeInsets.only(left:  40,),
                   height: 50,
                   child: new TextField(obscureText: true,
                     controller: _repeatPasswordController,
                     keyboardType: TextInputType.visiblePassword,
                     decoration: InputDecoration(
                       labelText: 'Re-password',
-                      icon: new Icon(Icons.vpn_key_rounded),
                     ),
                   ),
                 ),
@@ -124,7 +124,7 @@ class _EditPatientProfileState extends State<EditPatientProfile> {
                   height: 50,
                   child: new TextField(
                     controller: _ageController,
-                    keyboardType: TextInputType.visiblePassword,
+                    keyboardType: TextInputType.number,
                     decoration: InputDecoration(
                       labelText: 'Age',
                     ),
@@ -135,7 +135,7 @@ class _EditPatientProfileState extends State<EditPatientProfile> {
                   height: 50,
                   child: new TextField(
                     controller: _heightController,
-                    keyboardType: TextInputType.visiblePassword,
+                    keyboardType: TextInputType.number,
                     decoration: InputDecoration(
                       labelText: 'Height',
                     ),
@@ -146,7 +146,7 @@ class _EditPatientProfileState extends State<EditPatientProfile> {
                   height: 50,
                   child: new TextField(
                     controller: _weightController,
-                    keyboardType: TextInputType.visiblePassword,
+                    keyboardType: TextInputType.number,
                     decoration: InputDecoration(
                       labelText: 'Weight',
                     ),
@@ -157,7 +157,7 @@ class _EditPatientProfileState extends State<EditPatientProfile> {
                   height: 50,
                   child: new TextField(
                     controller: _bloodTypeController,
-                    keyboardType: TextInputType.visiblePassword,
+                    keyboardType: TextInputType.text,
                     decoration: InputDecoration(
                       labelText: 'Blood type',
                     ),
@@ -165,12 +165,13 @@ class _EditPatientProfileState extends State<EditPatientProfile> {
                 ),new Padding(padding: new EdgeInsets.only(top: 10.0),),
 
                 Container(margin: EdgeInsets.only(left: 40,),
-                  height: 50,
                   child: new TextField(
+                    maxLines: 7,
                     controller: _diagnosisController,
-                    keyboardType: TextInputType.visiblePassword,
-                    decoration: InputDecoration(
+                    keyboardType: TextInputType.text,
+                    decoration: InputDecoration( border: OutlineInputBorder(),
                       labelText: 'Diagnosis',
+
                     ),
                   ),
                 ),
@@ -182,19 +183,34 @@ class _EditPatientProfileState extends State<EditPatientProfile> {
                   alignment: Alignment.center ,
                   height: 100,
                   width: 400,
-                  child: new RaisedButton(
-                    onPressed: () {
-                      Navigator.of(context).push(new MaterialPageRoute(
-                        builder: (BuildContext context) => new Second(),
-                      ));
-                    },
-                    color: Colors.blue,
-                    child: new Text(
-                      'Update',
-                      style: new TextStyle(
-                          color: Colors.white, backgroundColor: Colors.blue),
-                    ),
-                  ),
+                  child: new Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      new OutlineButton(
+                        onPressed: () {
+                          Navigator.of(context).pop(new MaterialPageRoute(
+                            builder: (BuildContext context) => new Second(),
+                          ));
+                        },
+                        child: new Text(
+                          'Cancel',
+
+                        ),
+
+                      ),
+                      new Container( padding: new EdgeInsets.only(left: 25),
+                          child : new RaisedButton(
+                            onPressed: null,
+                            color: Colors.teal.shade700,
+                            child: new Text(
+                              'Update',
+                              style: new TextStyle(
+                                  color: Colors.white,),
+                            ),
+                          ),
+                      )
+                    ],
+                  )
                 ),
               ],
             )),

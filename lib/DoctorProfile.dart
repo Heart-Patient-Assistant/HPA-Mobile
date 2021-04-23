@@ -96,7 +96,7 @@ class _DoctorProfileState extends State<DoctorProfile> {
               color: Colors.white,
             ),
           ),
-          backgroundColor: Colors.blueGrey,
+          backgroundColor: Colors.teal.shade700,
           actions: [
             FlatButton.icon(
               onPressed: () {
@@ -104,7 +104,8 @@ class _DoctorProfileState extends State<DoctorProfile> {
                   builder: (BuildContext context) => new EditDoctorProfile(),
                 ));
               },
-              icon: Icon(Icons.edit),
+              icon: Icon(Icons.edit,
+                  color: Colors.white),
               label: Text(''),
               onLongPress: () {
                 showDialog(
