@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
         '/Third': (BuildContext context) => new Third(),
         '/PatientAccountInfo': (BuildContext context) => new PatientAccountInfo(),
         '/PatientPersonalInfo': (BuildContext context) => new PatientPersonalInfo(),
-        '/DoctorSignup': (BuildContext context) => new DoctorSignup(),
+        '/DoctorSignUp': (BuildContext context) => new DoctorSignUp(),
         '/Done': (BuildContext context) => new Done(),
         '/HomePage': (BuildContext context) => new HomePage(),
         '/DoctorProfile': (BuildContext context) => new DoctorProfile(),

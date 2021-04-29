@@ -1,67 +1,72 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_appl/DoctorProfile.dart';
+import 'package:flutter_appl/HomePage.dart';
 import 'package:flutter_appl/PatientProfile.dart';
+import 'package:flutter_appl/databasehelpler.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class First extends StatefulWidget {
+  First({Key key, this.title}) : super(key: key);
+  final String title;
   @override
   _FirstState createState() => _FirstState();
 }
 
 class _FirstState extends State<First> {
-  final TextEditingController userName = TextEditingController();
-  final TextEditingController password = TextEditingController();
+  read() async {
+    final prefs = await SharedPreferences.getInstance();
+    final key = 'token';
+    final value = prefs.get(key) ?? 0;
+    if (value != '0') {
+      // if (radioGroup == 0) {
+      //   Navigator.of(context).push(
+      //       new MaterialPageRoute(
+      //         builder: (BuildContext context) => new DoctorProfile(),
+      //       )
+      //   );
+      // } else if (radioGroup == 1){
+      //   Navigator.of(context).push(
+      //       new MaterialPageRoute(
+      //         builder: (BuildContext context) => new Second(),
+      //       )
+      //   );
+      // }
+
+    }
+  }
+
+  @override
+  initState() {
+    read();
+  }
+
+  DatabaseHelper databaseHelper = new DatabaseHelper();
+  String msgStatus = '';
+  final TextEditingController _emailController = new TextEditingController();
+  final TextEditingController _passwordController = new TextEditingController();
+
   String name = '';
-  int radioGroup = 0;
+  int radioGroup = 2;
 
   void radioEventHandler(int value) {
     setState(() {
       radioGroup = value;
     });
   }
-  void login() {
+
+
+  _clear() {
     setState(() {
-      if (userName.text.trim().isEmpty || password.text.trim().isEmpty) {
-        showDialog(
-            context: context,
-            builder: (context) {
-              return AlertDialog(
-                title: Text("Please enter your name and password."),
-                actions: [
-                  FlatButton(
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                      child: new Text(
-                        "Ok",
-                        style: TextStyle(color: Colors.blue),
-                      ))
-                ],
-              );
-            });
-      } else if (radioGroup==0) {
-        Navigator.of(context).pushNamed("/DoctorProfile", arguments: {
-          'user': userName,
-        });
-      }else{
-        Navigator.of(context).pushNamed("/PatientProfile", arguments: {
-          'user': userName,
-        });
-      }
+      _emailController.clear();
+      _passwordController.clear();
     });
   }
 
-  void clear() {
-    setState(() {
-      userName.clear();
-      password.clear();
-    });
-  }
-
-  void signUp() {
+  _signUp() {
     setState(() {
       Navigator.of(context).pushNamed('/Third');
     });
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -91,10 +96,10 @@ class _FirstState extends State<First> {
             new Container(
               margin: EdgeInsets.only(left: 33.5, right: 33.5),
               child: new TextField(
-                controller: userName,
+                controller: _emailController,
                 decoration: InputDecoration(
                   icon: new Icon(Icons.person, color: Colors.blueGrey),
-                  labelText: 'Name',
+                  labelText: 'E-mail',
                 ),
               ),
             ),
@@ -104,20 +109,21 @@ class _FirstState extends State<First> {
               child: Column(
                 children: [
                   new TextField(
-                    controller: password,
+                    controller: _passwordController,
                     obscureText: true,
                     decoration: InputDecoration(
                       icon: new Icon(
                         Icons.lock,
                         color: Colors.blueGrey,
                       ),
-                      labelText: 'Password'   ,
+                      labelText: 'Password',
                     ),
                   ),
                   new Padding(padding: EdgeInsets.only(top: 30.0)),
                   new Container(
-                      margin: EdgeInsets.only(left: 35.0),
+                      alignment: Alignment.center,
                       child: new Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           new Radio(
                             value: 0,
@@ -125,7 +131,9 @@ class _FirstState extends State<First> {
                             onChanged: radioEventHandler,
                           ),
                           new Text("Doctor"),
-                          new Padding(padding: EdgeInsets.only(right:15.0)),
+                          SizedBox(
+                            width: 30,
+                          ),
                           new Radio(
                             value: 1,
                             groupValue: radioGroup,
@@ -137,23 +145,78 @@ class _FirstState extends State<First> {
                 ],
               ),
             ),
-            new Padding(padding: EdgeInsets.all(15.5)),
+            new Padding(padding: EdgeInsets.only(top: 20.0)),
             new Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 new Container(
-                  margin: EdgeInsets.only(right: 10.5),
-                  child: new FlatButton(
-                    onPressed: login,
+                  alignment: Alignment.center,
+                  child: new RaisedButton(
+                    onPressed: () {
+                      if (_emailController.text.trim().isEmpty ||
+                          _passwordController.text.trim().isEmpty) {
+                        showDialog(
+                            context: context,
+                            builder: (context) {
+                              return AlertDialog(
+                                title: new Text('Complete'),
+                                content: Text(
+                                    "Please input your e-mail and password"),
+                                actions: [
+                                  FlatButton(
+                                      onPressed: () {
+                                        Navigator.pop(context);
+                                      },
+                                      child: new Text(
+                                        'Ok',
+                                        style: TextStyle(color: Colors.blue),
+                                      ))
+                                ],
+                              );
+                            });
+                      } else {
+                        setState(() {
+                          if (_emailController.text
+                                  .trim()
+                                  .toLowerCase()
+                                  .isNotEmpty &&
+                              _passwordController.text.trim().isNotEmpty) {
+                            databaseHelper
+                                .loginData(
+                                    _emailController.text.trim().toLowerCase(),
+                                    _passwordController.text.trim())
+                                .whenComplete(() {
+                              if (databaseHelper.status) {
+                                _showDialog();
+                                msgStatus = 'Check email or password';
+                              }
+                              if (radioGroup == 0) {
+                                Navigator.of(context)
+                                    .pushNamed("/DoctorProfile", arguments: {
+                                  'user': _emailController,
+                                });
+                              } else if (radioGroup == 1) {
+                                Navigator.of(context)
+                                    .pushNamed("/PatientProfile", arguments: {
+                                  'user': _emailController,
+                                });
+                              }
+                            });
+                          }
+                        });
+                      }
+                    },
                     child: Text("Login"),
                     color: Colors.blueGrey,
                     textColor: Colors.white,
                   ),
                 ),
+                SizedBox(
+                  width: 50,
+                ),
                 new Container(
-                  margin: EdgeInsets.only(left: 10.5),
-                  child: new FlatButton(
-                    onPressed: clear,
+                  child: new RaisedButton(
+                    onPressed: _clear,
                     child: Text("Clear"),
                     color: Colors.red,
                     textColor: Colors.white,
@@ -161,13 +224,13 @@ class _FirstState extends State<First> {
                 )
               ],
             ),
-            new Padding(padding: EdgeInsets.only(top: 25.0)),
+            new Padding(padding: EdgeInsets.only(top: 75.0)),
             new Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 new Text("Don't have an account ?"),
                 new FlatButton(
-                    onPressed: signUp,
+                    onPressed: _signUp,
                     child: new Text(
                       "Sign up",
                       style: TextStyle(
@@ -180,5 +243,26 @@ class _FirstState extends State<First> {
         ),
       ),
     );
+  }
+
+  void _showDialog() {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: new Text('Failed'),
+            content: new Text('Check your email or password'),
+            actions: <Widget>[
+              FlatButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: new Text(
+                    'Ok',
+                    style: TextStyle(color: Colors.blue),
+                  ))
+            ],
+          );
+        });
   }
 }

@@ -29,7 +29,8 @@ class DatabaseHelper{
 
   }
 
-  registerData(String firstName ,String lastName ,String email , String password, String password2 ,String type) async{
+
+  registerData(String email ,String firstName ,String lastName , String password, String password2 ,String type) async{
 
     Uri myUrl = "$serverUrl/register1" as Uri;
     final response = await  http.post(myUrl,
