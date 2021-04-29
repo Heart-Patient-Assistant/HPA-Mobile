@@ -26,7 +26,8 @@ class _PatientPersonalInfoState extends State<PatientPersonalInfo> {
             context: context,
             builder: (context) {
               return AlertDialog(
-                title: Text("Please complete the required information "),
+                content:Text("Please input the required information ") ,
+                title: Text(" Complete "),
                 actions: [
                   FlatButton(
                       onPressed: () {
@@ -54,7 +55,8 @@ class _PatientPersonalInfoState extends State<PatientPersonalInfo> {
         title: new Text('Personal Information'),
         backgroundColor: Colors.blueGrey,
       ),
-      body: new Container(margin: EdgeInsets.only(left: 20, right: 33.5),
+      body: new Container(
+        margin: EdgeInsets.only(left: 20, right: 33.5),
         child: new ListView(
           padding: const EdgeInsets.only(top: 32),
           children: [
@@ -123,12 +125,10 @@ class _PatientPersonalInfoState extends State<PatientPersonalInfo> {
                 ),
               ),
             ),
-
             new Padding(
               padding: new EdgeInsets.only(top: 10.0),
             ),
             Container(
-
               height: 50,
               child: new TextField(
                 maxLines: 10,
@@ -145,14 +145,13 @@ class _PatientPersonalInfoState extends State<PatientPersonalInfo> {
               padding: new EdgeInsets.only(top: 10.0),
             ),
             Container(
-
               child: new TextField(
                 maxLines: 7,
                 controller: diagnosis,
                 textDirection: TextDirection.ltr,
                 keyboardType: TextInputType.text,
-                decoration: InputDecoration( border: OutlineInputBorder(),
-
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(),
                   hintText: "If you know your diagnosis,please insert it",
                   icon: new Icon(Icons.assignment, color: Colors.blueGrey),
                 ),
