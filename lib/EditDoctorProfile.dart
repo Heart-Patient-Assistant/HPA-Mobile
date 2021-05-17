@@ -37,7 +37,7 @@ class _EditDoctorProfileState extends State<EditDoctorProfile> {
       home: Scaffold(
         appBar: AppBar(
           title: Text('Edit your information'),
-          backgroundColor: Colors.teal.shade700,
+          backgroundColor: Colors.blueGrey,
         ),
         body: Container(margin: EdgeInsets.only(left: 33.5, right: 33.5),
             child: ListView(

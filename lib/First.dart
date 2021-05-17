@@ -42,7 +42,7 @@ class _FirstState extends State<First> {
           'user': userName,
         });
       }else{
-        Navigator.of(context).pushNamed("/PatientProfile", arguments: {
+        Navigator.of(context).pushNamed("/Tips", arguments: {
           'user': userName,
         });
       }

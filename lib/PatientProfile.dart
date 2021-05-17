@@ -100,7 +100,7 @@ class _SecondState extends State<Second> {
               color: Colors.white,
             ),
           ),
-          backgroundColor: Colors.teal.shade700,
+          backgroundColor: Colors.blueGrey,
           actions: [
             FlatButton.icon(
               onPressed: () {
@@ -195,7 +195,16 @@ class _SecondState extends State<Second> {
             new ElevatedButton(onPressed: (){
               saveImage(_imageFile.path);
             },
-              child: Text("Save Picture"),)
+              child: Text("Save Picture"),),
+
+            new Padding(padding: EdgeInsets.all(10.0)),
+
+            new ElevatedButton(onPressed: (){
+              setState(() {
+                Navigator.of(context).pushNamed('/Prediction');
+              });
+            },
+              child: Text("Get Predictions"),)
 
           ],
         ));

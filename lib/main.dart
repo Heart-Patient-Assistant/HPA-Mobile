@@ -10,6 +10,9 @@ import 'package:flutter_appl/PatientAccountInfo.dart';
 import 'package:flutter_appl/PatientPersonalInfo.dart' ;
 import 'package:flutter_appl/DoctorSignup.dart';
 import 'package:flutter_appl/HomePage.dart';
+import 'package:flutter_appl/PredictionModel.dart';
+import 'package:flutter_appl/TipsForThePatient.dart';
+
 
 
 void main() {
@@ -32,6 +35,13 @@ class MyApp extends StatelessWidget {
         '/Done': (BuildContext context) => new Done(),
         '/HomePage': (BuildContext context) => new HomePage(),
         '/DoctorProfile': (BuildContext context) => new DoctorProfile(),
+        '/Prediction': (BuildContext context) => new PredictionModel(),
+        '/Tips': (BuildContext context) => new Tips(),
+
+
+
+
+
 
 
 

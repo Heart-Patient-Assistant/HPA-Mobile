@@ -96,7 +96,7 @@ class _DoctorProfileState extends State<DoctorProfile> {
               color: Colors.white,
             ),
           ),
-          backgroundColor: Colors.teal.shade700,
+          backgroundColor: Colors.blueGrey,
           actions: [
             FlatButton.icon(
               onPressed: () {
