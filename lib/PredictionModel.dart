@@ -134,7 +134,7 @@ class _PredictionModelState extends State<PredictionModel> {
                       controller: cp,
                       keyboardType: TextInputType.number,
                       decoration: InputDecoration(
-                        labelText: 'cp',
+                        labelText: 'Chest Pain',
                         icon: new Icon(Icons.circle),
                       ),
                     ),
@@ -148,7 +148,7 @@ class _PredictionModelState extends State<PredictionModel> {
                       controller: trestbps,
                       keyboardType: TextInputType.number,
                       decoration: InputDecoration(
-                        labelText: 'trestbps',
+                        labelText: 'Resting Blood Pressure',
                         icon: new Icon(Icons.circle),
                       ),
                     ),
@@ -163,7 +163,7 @@ class _PredictionModelState extends State<PredictionModel> {
                       controller: chol,
                       keyboardType: TextInputType.number,
                       decoration: InputDecoration(
-                        labelText: 'chol',
+                        labelText: 'Cholesterol',
                         icon: Icon(Icons.circle)
                       ),
                     ),
@@ -178,7 +178,7 @@ class _PredictionModelState extends State<PredictionModel> {
                       controller: fbs,
                       keyboardType: TextInputType.number,
                       decoration: InputDecoration(
-                        labelText: 'fbs',
+                        labelText: 'Fasting Blood Sugar Level',
                           icon: Icon(Icons.circle)
                       ),
                     ),
@@ -193,7 +193,7 @@ class _PredictionModelState extends State<PredictionModel> {
                       controller: restecg,
                       keyboardType: TextInputType.number,
                       decoration: InputDecoration(
-                        labelText: 'restecg',
+                        labelText: 'Resting Electrocardiographic Results',
                           icon: Icon(Icons.circle)
                       ),
                     ),
@@ -237,7 +237,7 @@ class _PredictionModelState extends State<PredictionModel> {
                       controller: oldpeak,
                       keyboardType: TextInputType.number,
                       decoration: InputDecoration(
-                        labelText: 'oldpeak',
+                        labelText: 'Old Peak',
                           icon: Icon(Icons.circle)
                       ),
                     ),
@@ -252,7 +252,7 @@ class _PredictionModelState extends State<PredictionModel> {
                       controller: slope,
                       keyboardType: TextInputType.number,
                       decoration: InputDecoration(
-                        labelText: 'slope',
+                        labelText: 'Slope',
                           icon: Icon(Icons.circle)
                       ),
                     ),
@@ -281,7 +281,7 @@ class _PredictionModelState extends State<PredictionModel> {
                       controller: thal,
                       keyboardType: TextInputType.number,
                       decoration: InputDecoration(
-                        labelText: 'thal',
+                        labelText: 'Thallium Stress Result',
                           icon: Icon(Icons.circle)
                       ),
                     ),
@@ -291,7 +291,7 @@ class _PredictionModelState extends State<PredictionModel> {
 
                   new ElevatedButton(onPressed: (){
                     Predict();
-                  }, child: Text("Done"))
+                  }, child: Text("Predict"))
                 ],
               ),
 
