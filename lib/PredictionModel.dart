@@ -74,11 +74,6 @@ class _PredictionModelState extends State<PredictionModel> {
        return AlertDialog(content: Text("${data['prediction']} ..... ${data['worry']}"),actions: [FlatButton(onPressed: (){Navigator.pop(context);}, child: Text("Ok"))],);
      });
    }
-
-
-
-
-
  }
   @override
   Widget build(BuildContext context) {

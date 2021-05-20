@@ -1,5 +1,12 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_appl/PatientProfile.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+import 'package:shared_preferences/shared_preferences.dart';
+
+
 
 class First extends StatefulWidget {
   @override
@@ -7,8 +14,12 @@ class First extends StatefulWidget {
 }
 
 class _FirstState extends State<First> {
-  final TextEditingController userName = TextEditingController();
-  final TextEditingController password = TextEditingController();
+
+  var status ;
+  var token ="c82eb1a3796cd5b38b4b1d22df589303a6e41b73";
+
+  TextEditingController userName = TextEditingController();
+  TextEditingController password = TextEditingController();
   String name = '';
   int radioGroup = 0;
 
@@ -17,7 +28,60 @@ class _FirstState extends State<First> {
       radioGroup = value;
     });
   }
-  void login() {
+
+
+  void clear() {
+    setState(() {
+      userName.clear();
+      password.clear();
+    });
+  }
+
+  void signUp() {
+    setState(() {
+      Navigator.of(context).pushNamed('/Third');
+    });
+  }
+
+  Future login( ) async {
+
+    var user =userName.text;
+    var pass =password.text;
+
+
+    final response = await http.post(
+
+        Uri.parse("https://mahdy.pythonanywhere.com/api/users/signin/"),
+
+        body: {
+          'username': "$user",
+          'password': "$pass",
+        }
+
+    );
+
+   // status = response.body.contains('user login');
+   // var data = json.decode(response.body);
+   /* if(status){
+      return showDialog(context: context, builder: (context){
+        return AlertDialog(content: Text("${data['prediction']} ..... ${data['worry']}"),actions: [FlatButton(onPressed: (){Navigator.pop(context);}, child: Text("Ok"))],);
+      });
+    }else{
+      return showDialog(context: context, builder: (context){
+        return AlertDialog(content: Text("${data['prediction']} ..... ${data['worry']}"),actions: [FlatButton(onPressed: (){Navigator.pop(context);}, child: Text("Ok"))],);
+      });
+    }*/
+    status = response.body.contains('non_field_errors');
+
+    var data = json.decode(response.body);
+
+   /* if(status){
+      print('data : ${data["non_field_errors"]}');
+    }else{
+      print('data : ${data["token"]}');
+      _save(data["token"]);
+    }*/
+
     setState(() {
       if (userName.text.trim().isEmpty || password.text.trim().isEmpty) {
         showDialog(
@@ -47,19 +111,17 @@ class _FirstState extends State<First> {
         });
       }
     });
+
+
+
   }
 
-  void clear() {
-    setState(() {
-      userName.clear();
-      password.clear();
-    });
-  }
 
-  void signUp() {
-    setState(() {
-      Navigator.of(context).pushNamed('/Third');
-    });
+  _save(String token) async {
+    final prefs = await SharedPreferences.getInstance();
+    final key = 'token';
+    final value = token;
+    prefs.setString(key, value);
   }
 
 
