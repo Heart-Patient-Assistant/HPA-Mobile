@@ -29,28 +29,67 @@ class DatabaseHelper{
 
   }
 
-  registerData(String firstName ,String lastName ,String email , String password, String password2 ,String type) async{
+  Future<Register> registerDoctorData(String email ,String firstName ,String lastName , String password, String password2, String type ) async{
 
-    Uri myUrl = "$serverUrl/register1" as Uri;
-    final response = await  http.post(myUrl,
-        body: {
+    final response = await http.post(Uri.parse("https://mahdy.pythonanywhere.com/api/users/signup/") ,
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body:jsonEncode(<String, String> {
           "email": "$email",
           "first_name": "$firstName",
           "last_name": "$lastName",
           "password" : "$password",
           "password2" : "$password2",
           "type" : "$type"
-        } ) ;
-    status = response.body.contains('non_field_errors');
-
+        } )) ;
+    print(response.statusCode);
     var data = json.decode(response.body);
-
     if(status){
       print('data : ${data["non_field_errors"]}');
     }else{
       print('data : ${data["token"]}');
       _save(data["token"]);
     }
+    if (response.statusCode ==200) {
+      return Register.fromJson(jsonDecode(response.body));
+    } else {
+      throw Exception('Failed to register');
+    }
+
+
+
+  }
+
+  Future<Register2> registerPatientData(String email ,String firstName ,String lastName , String password, String password2, String type ) async{
+
+    final response = await http.post(Uri.parse("https://mahdy.pythonanywhere.com/api/users/signup/") ,
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body:jsonEncode(<String, String> {
+          "email": "$email",
+          "first_name": "$firstName",
+          "last_name": "$lastName",
+          "password" : "$password",
+          "password2" : "$password2",
+          "type" : "$type"
+        } )) ;
+    print(response.statusCode);
+    var data = json.decode(response.body);
+    if(status){
+      print('data : ${data["non_field_errors"]}');
+    }else{
+      print('data : ${data["token"]}');
+      _save(data["token"]);
+    }
+    if (response.statusCode ==200) {
+      return Register2.fromJson(jsonDecode(response.body));
+    } else {
+      throw Exception('Failed to register');
+    }
+
+
 
   }
 
@@ -104,4 +143,46 @@ class DatabaseHelper{
   }
 
 
+}
+
+
+
+class Register {
+  final String email;
+  final String firstName;
+  final String lastName;
+  final String password;
+  final String password2;
+
+  Register({this.email, this.firstName,this.lastName, this.password, this.password2});
+  factory Register.fromJson(Map<String, dynamic> json) {
+    return Register(
+      email: json['email'],
+      firstName: json['firstName'],
+      lastName: json['lastName'],
+      password: json['password'],
+      password2: json['password2'],
+
+    );
+  }
+}
+
+class Register2 {
+  final String email;
+  final String firstName;
+  final String lastName;
+  final String password;
+  final String password2;
+
+  Register2({this.email, this.firstName,this.lastName, this.password, this.password2});
+  factory Register2.fromJson(Map<String, dynamic> json) {
+    return Register2(
+      email: json['email'],
+      firstName: json['firstName'],
+      lastName: json['lastName'],
+      password: json['password'],
+      password2: json['password2'],
+
+    );
+  }
 }

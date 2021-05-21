@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_appl/Done.dart';
+import 'package:flutter_appl/databasehelpler.dart';
 
 
 class DoctorSignup extends StatefulWidget{
@@ -10,56 +11,72 @@ class DoctorSignup extends StatefulWidget{
 }
 
 class _DoctorSignupState extends State<DoctorSignup>{
-  final TextEditingController name = TextEditingController();
+  DatabaseHelper databaseHelper = new DatabaseHelper();
+
+  final TextEditingController firstName = TextEditingController();
   final TextEditingController email = TextEditingController();
-  final TextEditingController userName = TextEditingController();
+  final TextEditingController lastName = TextEditingController();
   final TextEditingController password = TextEditingController();
   final TextEditingController repeatPassword = TextEditingController();
-  final TextEditingController medicalDegree = TextEditingController();
+  String type ='DOCTOR';
+  Future<Register> _futureRegister;
 
-  void signUp() {
-    setState(() {
-      if (name.text.trim().isEmpty || email.text.trim().isEmpty
-          ||userName.text.trim().isEmpty || password.text.trim().isEmpty||repeatPassword.text.trim().isEmpty) {
-        showDialog(
-            context: context,
-            builder: (context) {
-              return AlertDialog(
-                title: Text("Please complete the required information "),
-                actions: [
-                  FlatButton(
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                      child: new Text(
-                        "Ok",
-                        style: TextStyle(color: Colors.blue),
-                      ))
-                ],
-              );
-            });
-      } else if(password.text.trim()!= repeatPassword.text.trim()){
-        showDialog(
-            context: context,
-            builder: (context) {
-              return AlertDialog(
-                title: Text("Please convert the password "),
-                actions: [
-                  FlatButton(
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                      child: new Text(
-                        "Ok",
-                        style: TextStyle(color: Colors.blue),
-                      ))
-                ],
-              );
-            });
-      }else {
-        Navigator.of(context).pushNamedAndRemoveUntil('/Done', (Route<dynamic> route)=> false, arguments: {
-        });      }
-    });
+  _signUp() {
+    if (firstName.text.trim().isEmpty || email.text.trim().isEmpty
+        ||lastName.text.trim().isEmpty || password.text.trim().isEmpty||repeatPassword.text.trim().isEmpty) {
+      showDialog(
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+              title: Text("Please complete the required information "),
+              actions: [
+                FlatButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    child: new Text(
+                      "Ok",
+                      style: TextStyle(color: Colors.blue),
+                    ))
+              ],
+            );
+          });
+    } else if(password.text.trim()!= repeatPassword.text.trim()){
+      showDialog(
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+              title: Text("Please convert the password "),
+              actions: [
+                FlatButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    child: new Text(
+                      "Ok",
+                      style: TextStyle(color: Colors.blue),
+                    ))
+              ],
+            );
+          });
+    }
+    else {
+      setState(() {
+        _futureRegister = databaseHelper.registerDoctorData(
+            email.text.trim().toLowerCase(),
+            firstName.text.trim(),
+            lastName.text.trim(),
+            password.text.trim(),
+            repeatPassword.text.trim(),
+            type.trim());
+      });
+      if (type.contains('DOCTOR') ){
+        Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(
+              builder: (BuildContext context) => Done()),
+          ModalRoute.withName('/Done'),
+        ); }     }
   }
 
 
@@ -72,7 +89,8 @@ class _DoctorSignupState extends State<DoctorSignup>{
         title: new Text('Sign up'),
         backgroundColor: Colors.blueGrey,
       ),
-      body: new Container(margin: EdgeInsets.only(left: 33.5, right: 33.5),
+      body: (_futureRegister == null)
+          ? new Container(margin: EdgeInsets.only(left: 33.5, right: 33.5),
          child : ListView(
             padding: const EdgeInsets.only(
                 top: 32),
@@ -80,11 +98,24 @@ class _DoctorSignupState extends State<DoctorSignup>{
               Container(
                 height: 50,
                 child: new TextField(
-                  controller: name,
+                  controller: firstName,
                   keyboardType: TextInputType.text,
                   decoration: InputDecoration(
-                    labelText: 'Name',
+                    labelText: 'First name',
                     icon: new Icon(Icons.person),
+                  ),
+                ),
+              ),
+              new Padding(padding: new EdgeInsets.only(top: 10.0),),
+
+              Container(
+                height: 50,
+                child: new TextField(
+                  controller: lastName,
+                  keyboardType: TextInputType.text,
+                  decoration: InputDecoration(
+                    labelText: 'Last name',
+                    icon: new Icon(Icons.person ),
                   ),
                 ),
               ),
@@ -96,24 +127,12 @@ class _DoctorSignupState extends State<DoctorSignup>{
                   controller: email,
                   keyboardType: TextInputType.emailAddress,
                   decoration: InputDecoration(
-                    labelText: 'E-mail',
+                    labelText: 'Email',
                     icon: new Icon(Icons.email),
                   ),
                 ),
               ),
-              new Padding(padding: new EdgeInsets.only(top: 10.0),),
 
-              Container(
-                height: 50,
-                child: new TextField(
-                  controller: userName,
-                  keyboardType: TextInputType.text,
-                  decoration: InputDecoration(
-                    labelText: 'User name',
-                    icon: new Icon(Icons.person ),
-                  ),
-                ),
-              ),
               new Padding(padding: new EdgeInsets.only(top: 10.0),),
 
               Container(
@@ -139,24 +158,14 @@ class _DoctorSignupState extends State<DoctorSignup>{
                   ),
                 ),
               ),
-              new Padding(padding: new EdgeInsets.only(top: 10.0),),
 
-              Container(margin: EdgeInsets.only(left:  40,),
-                height: 50,
-                child: new TextField(controller: medicalDegree,
-                  keyboardType: TextInputType.text,
-                  decoration: InputDecoration(
-                    labelText: 'Medical degree',
-                  ),
-                ),
-              ),
               new Padding(padding: new EdgeInsets.only(top: 30.0),),
 
               new Container(
                 alignment : Alignment.center,
                   padding: new EdgeInsets.only(left: 25),
                 child : new RaisedButton(
-                  onPressed: signUp,
+                  onPressed: _signUp,
                   color: Colors.teal.shade700,
                   child: new Text(
                     'Sign up',
@@ -167,7 +176,19 @@ class _DoctorSignupState extends State<DoctorSignup>{
               )
             ],
           ),
-      )
+      ): FutureBuilder<Register>(
+        future: _futureRegister,
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            return Text(snapshot.data.email);
+          } else if (snapshot.hasError) {
+            return Text("${snapshot.error}");
+          }
+          return new Center(
+            child: CircularProgressIndicator(),
+          );
+        },
+      ),
 
 
     );

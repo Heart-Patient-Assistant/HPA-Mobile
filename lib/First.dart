@@ -21,7 +21,7 @@ class _FirstState extends State<First> {
   TextEditingController userName = TextEditingController();
   TextEditingController password = TextEditingController();
   String name = '';
-  int radioGroup = 0;
+  int radioGroup = 2;
 
   void radioEventHandler(int value) {
     setState(() {
@@ -72,7 +72,7 @@ class _FirstState extends State<First> {
       });
     }*/
     status = response.body.contains('non_field_errors');
-
+    print(response.statusCode);
     var data = json.decode(response.body);
 
    /* if(status){
